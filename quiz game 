@@ -1,0 +1,90 @@
+/**
+ * Simple JavaScript Console Quiz Game
+ *
+ * This script runs entirely in the browser console.
+ * It uses an array for questions, a for loop to iterate,
+ * prompt() and alert() for I/O, and tracks the user's score.
+ */
+
+function startConsoleQuiz() {
+    // 1. Predefined array of questions and answers
+    const quizQuestions = [
+        {
+            question: "What is the primary function of the 'var' keyword in JavaScript? (a) Declare a variable, (b) Define a function, or (c) Create an object?",
+            answer: "a"
+        },
+        {
+            question: "Which operator is used for strict equality comparison (value and type)? (a) ==, (b) =, or (c) ===?",
+            answer: "c"
+        },
+        {
+            question: "What built-in method is used to remove the last element from an array in JavaScript? (a) shift(), (b) pop(), or (c) splice()?",
+            answer: "b"
+        },
+        {
+            question: "What does the 'NaN' global property represent? (a) Not a number, (b) New array name, or (c) Null or nothing?",
+            answer: "a"
+        },
+        {
+            question: "Which function is used to print content to the browser console? (a) alert(), (b) prompt(), or (c) console.log()?",
+            answer: "c"
+        }
+    ];
+
+    let score = 0; // Initialize score tracker
+    const totalQuestions = quizQuestions.length;
+
+    // Announce the start of the quiz
+    console.log("--- Welcome to the JavaScript Console Quiz! ---");
+    console.log(`You have ${totalQuestions} questions. Good luck!`);
+
+    // 2. Loop through each question using a for loop
+    for (let i = 0; i < totalQuestions; i++) {
+        const currentQuestion = quizQuestions[i];
+        
+        // 3. Prompt the user for input
+        // Using `Question X of Y: ` to guide the user
+        let userInput = prompt(`Question ${i + 1} of ${totalQuestions}:\n${currentQuestion.question}`);
+
+        // Check if the user cancelled the prompt (userInput will be null)
+        if (userInput === null) {
+            alert("Quiz cancelled. Thanks for playing!");
+            console.log("Quiz was cancelled by the user.");
+            return; // Exit the function if the user cancels
+        }
+
+        // 4. Process user input (trim spaces and convert to lower case)
+        const processedInput = userInput.trim().toLowerCase();
+        const correctAnswer = currentQuestion.answer.trim().toLowerCase();
+
+        // 5. Check the answer and provide immediate feedback
+        if (processedInput === correctAnswer) {
+            score++;
+            alert("✅ Correct! Your current score is: " + score);
+            console.log(`Question ${i + 1}: Correct!`);
+        } else {
+            alert(`❌ Incorrect. The correct answer was: ${correctAnswer.toUpperCase()}.\nYour current score is: ${score}`);
+            console.log(`Question ${i + 1}: Incorrect. Answer was ${correctAnswer.toUpperCase()}`);
+        }
+        
+        console.log("--------------------"); // Separator in console for clarity
+    }
+
+    // 6. Display the final score at the end
+    const finalMessage = `🎉 Quiz Complete! Your final score is ${score} out of ${totalQuestions}.`;
+    
+    alert(finalMessage);
+    console.log(finalMessage);
+    
+    // Optional feedback based on performance
+    if (score === totalQuestions) {
+        console.log("🌟 Perfect score! Excellent work!");
+    } else if (score >= totalQuestions / 2) {
+        console.log("👍 Good job! You know your fundamentals.");
+    } else {
+        console.log("Keep practicing to master those JavaScript basics!");
+    }
+}
+
+// Start the game by calling the function
+startConsoleQuiz();
